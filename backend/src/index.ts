@@ -1,7 +1,7 @@
 import { middleware } from "@/middleware/middleware.js";
-import { router } from "@/routes/index.js";
+import router from "@/routes/index.js";
 import express from "express";
-import { db } from "@/db/db.js";
+import { db } from "@/lib/pg-promise.js";
 
 const app = express();
 const port = process.env.PORT ?? "9000";

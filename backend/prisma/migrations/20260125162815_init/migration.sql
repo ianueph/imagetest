@@ -1,0 +1,6 @@
+-- CreateTable
+CREATE TABLE "Images" (
+    "id" SERIAL NOT NULL,
+
+    CONSTRAINT "Images_pkey" PRIMARY KEY ("id")
+);
