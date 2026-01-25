@@ -1,0 +1,16 @@
+# Environment variables
+.env
+.env.*
+!.env.template
+
+# Dependencies
+node_modules
+
+# TypeScript build output
+dist
+
+# OS generated files
+.DS_Store
+
+# Test coverage
+/coverage
