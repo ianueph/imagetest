@@ -1,9 +1,9 @@
-import express from "express";
-import imagesRouter from "./images/index.js";
+import { Router } from "express";
 
-const router = express.Router();
+import imagesRouter from "./images/index.js"
 
-router.use("/images", imagesRouter);
+const router = Router();
 
-export { router };
+router.use("/image", imagesRouter);
 
+export default router;

@@ -29,8 +29,9 @@ app.get("/health", (req, res) => {
     console.log(`Health check coming from: ${req.hostname}`)
 })
 
+app.use(router);
+
 app.listen(port, () => {
     console.log(`Example app listening on ${port}`);
 });
 
-app.use(router);
