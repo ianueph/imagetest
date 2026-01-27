@@ -6,7 +6,8 @@ declare global {
             PG_USER : string,
             PG_PW : string,
             PG_PORT : number,
-            PG_DB : string
+            PG_DB : string,
+            IMAGE_DIR : string,
         }
     }
 }
