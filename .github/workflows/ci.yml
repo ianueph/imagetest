@@ -24,7 +24,7 @@ jobs:
       
       - name: Build and start services
         run: |
-          docker compose up -d --build -f docker-compose.prod.yaml
+          docker compose -f docker-compose.prod.yaml up -d --build 
           docker compose ps
 
       - name: Wait for API to be healthy
