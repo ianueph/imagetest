@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -13,6 +7,73 @@ datasource db {
   provider = "postgresql"
 }
 
+enum MetadataCategory {
+  DEVICE
+  CHRONOLOGY
+  LOCATION
+  EXPOSURE
+  LENS
+  ORIENTATION
+  IMAGE_PROCESSING
+  COLOR
+  FILE
+  MAKERNOTES
+  MISC
+}
+
+enum Segment {
+  TIFF
+  XMP
+  ICC
+  IPTC
+  JFIF
+  IHDR
+}
+
+enum Units {
+  NONE
+  STRING
+  BOOLEAN
+  SECONDS
+  FSTOP
+  ISO
+  KELVIN
+  METERS
+  DEGREES
+  KILOMETERS_PER_HOUR
+  METERS_PER_SECOND
+  MILLIMETERS
+  MM_EQUIV
+  BYTES
+  PIXELS
+  PERCENT
+}
+
 model Images {
-  id Int @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
+  sha256      Bytes     
+  exif_tags   ExifTag[]
+  upload_time DateTime 
+  updated_at  DateTime  @updatedAt
+
+  @@index([upload_time])
+}
+
+model ExifTag {
+  id          Int       @id @default(autoincrement())
+  image       Images    @relation(fields: [image_id], references: [id])
+  image_id    Int       
+  category    MetadataCategory
+  segment     Segment
+  tag         String
+  tag_id      String?
+  value       String?
+  raw_value   String?
+  raw_json    Json?
+  units       Units
+
+  @@index([image_id])
+  @@index([category])
+  @@index([segment])
+  @@index([image_id, category])
 }
