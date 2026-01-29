@@ -6,3 +6,5 @@ function errorMiddleware(err: HttpError, request: Request, response: Response, n
     const message = err.message ? err.message : `Something went wrong!`;
     response.status(statusCode).send({statusCode, message, error: err});
 }
+
+export default errorMiddleware;

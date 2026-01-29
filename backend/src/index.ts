@@ -1,4 +1,4 @@
-import { middleware } from "#middleware/generic.middleware.js";
+import { middleware } from "#middleware/middleware.js";
 import router from "@/routes/index.js";
 import express from "express";
 import { db } from "@/lib/pg-promise.js";
@@ -9,6 +9,7 @@ const port = process.env.PORT ?? "9000";
 app.use(middleware.cors);
 app.use(middleware.helmet);
 app.use(middleware.logger);
+app.use(middleware.error);
 
 // check database connection
 try {
