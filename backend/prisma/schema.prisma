@@ -47,13 +47,19 @@ enum Units {
   BYTES
   PIXELS
   PERCENT
+  DATETIME
+  APEX
+  INCHES
+  EV
+  BUFFER
 }
 
 model Images {
   id          Int       @id @default(autoincrement())
+  path        String
   sha256      Bytes     
   exif_tags   ExifTag[]
-  upload_time DateTime 
+  upload_time DateTime  @default(now())
   updated_at  DateTime  @updatedAt
 
   @@index([upload_time])
@@ -63,7 +69,7 @@ model ExifTag {
   id          Int       @id @default(autoincrement())
   image       Images    @relation(fields: [image_id], references: [id])
   image_id    Int       
-  category    MetadataCategory
+  category    MetadataCategory?
   segment     Segment
   tag         String
   tag_id      String?

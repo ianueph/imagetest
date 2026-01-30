@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Images" ALTER COLUMN "upload_time" SET DEFAULT CURRENT_TIMESTAMP;

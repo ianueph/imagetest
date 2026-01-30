@@ -1,12 +1,12 @@
 import { Router } from "express";
 import multer from 'multer';
-import { Exifr } from "exifr";
 import { prisma } from '@/lib/prisma.js'
 import { validateImageMimeType } from "#utils/image-utils.js";
 import createHttpError from "http-errors";
+import hashFile from "#utils/hashFile.js";
+import getImageExifMetadata from "#utils/exif/getImageExifMetadata.js";
 
 const router = Router();
-const exifr = new Exifr;
 // Multer configs
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -15,8 +15,10 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     let extArray = file.mimetype.split("/");
     let extension = extArray[extArray.length - 1];
+    let fnArray = file.originalname.split(".");
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + '.' + extension);
+    let filename = fnArray[fnArray.length - 2] + '-' + uniqueSuffix + '.' + extension;
+    cb(null, filename);
   },
 })
 const upload = multer({ 
@@ -33,10 +35,24 @@ router.post('/upload', upload.single('photo'), async (req, res, next) => {
     // Image metadata should be stored to db
     if (!req.file) { return next(createHttpError(400))};
 
-    const filename = req.file.filename;
-    await exifr.read(req.file)
-    exifr.parse()
-      .then(output => console.log(output));
+    const exifTags = await getImageExifMetadata(req.file);
+    if (!Object.keys(exifTags)) { console.log(`File does not have exifs.`)};
+
+    const imageId = await prisma.images.create({
+      data: {
+        path: req.file.path,
+        sha256: await hashFile(req.file.path),
+        exif_tags: {
+          createMany: {
+            data: exifTags
+          }
+        }
+      }
+    });
+
+    console.log(`Created a new entry for ${req.file.filename}, id: ${imageId}`)
+
+    res.send(200);
 });
 
 router.get('/:id', (req, res) => {

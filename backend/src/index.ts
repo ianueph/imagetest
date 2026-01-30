@@ -1,4 +1,4 @@
-import { middleware } from "#middleware/middleware.js";
+import { middleware } from "./middleware/middleware.js";
 import router from "@/routes/index.js";
 import express from "express";
 import { db } from "@/lib/pg-promise.js";
