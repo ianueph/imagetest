@@ -1,4 +1,4 @@
-import { ALLOWED_IMAGE_MIME_TYPES, AllowedImageMimeType } from "#config/config.js";
+import { ALLOWED_IMAGE_MIME_TYPES, AllowedImageMimeType } from "../config/config.js";
 import createHttpError from "http-errors";
 
 export function validateImageMimeType(file: { mimetype: string }): 

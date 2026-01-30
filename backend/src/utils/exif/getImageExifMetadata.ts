@@ -4,7 +4,7 @@ import normalizeValue from "./normalizeValue.js";
 import normalizeJson from "./normalizeJson.js";
 import inferUnits from "./inferUnits.js";
 import inferCategory from "./inferCategory.js";
-import { ALLOWED_IMAGE_MIME_TYPES } from "#config/config.js";
+import { ALLOWED_IMAGE_MIME_TYPES } from "../../config/config.js";
 
 function pushTags(
   target: Prisma.ExifTagCreateManyImageInput[],

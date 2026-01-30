@@ -1,4 +1,4 @@
-import { isBinary } from "#utils/isBinary.js";
+import { isBinary } from "../isBinary.js";
 
 function normalizeValue(value: unknown): string | null {
   if (value == null) return null;

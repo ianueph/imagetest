@@ -1,10 +1,10 @@
 import { Router } from "express";
 import multer from 'multer';
 import { prisma } from '@/lib/prisma.js'
-import { validateImageMimeType } from "#utils/image-utils.js";
+import { validateImageMimeType } from "../../utils/image-utils.js";
 import createHttpError from "http-errors";
-import hashFile from "#utils/hashFile.js";
-import getImageExifMetadata from "#utils/exif/getImageExifMetadata.js";
+import hashFile from "../../utils/hashFile.js";
+import getImageExifMetadata from "../../utils/exif/getImageExifMetadata.js";
 
 const router = Router();
 // Multer configs

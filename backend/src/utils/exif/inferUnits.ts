@@ -1,5 +1,4 @@
 import { Units } from "#/generated/prisma/client.js";
-import { isBinary } from "#utils/isBinary.js";
 
 function inferUnits(tag: string, value: unknown): Units {
   if (typeof value === "string") return Units.STRING;
